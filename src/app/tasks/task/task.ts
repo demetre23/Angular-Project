@@ -1,12 +1,6 @@
-import { Component, Input} from '@angular/core';
-
-interface Taskebi{
-  id: string;
-  userId: string;
-  title: string;
-  summary: string;
-  dueDate: string;
-}
+import { Component, EventEmitter, Input, Output} from '@angular/core';
+import { type Taskebi } from "./task.module"
+import { EventInfoWrapper } from '@angular/core/primitives/event-dispatch';
 
 @Component({
   selector: 'app-task',
@@ -14,6 +8,12 @@ interface Taskebi{
   templateUrl: './task.html',
   styleUrl: './task.css',
 })
+
 export class Task {   
     @Input({required: true}) task!: Taskebi
+    @Output() comlete = new EventEmitter<string>();
+
+    onCompleteTask() {
+      this.comlete.emit(this.task.id)
+    }
 }
